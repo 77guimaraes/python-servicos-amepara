@@ -5,6 +5,7 @@ env/
 
 # PyCharm e IntelliJ
 .idea/
+
 *.iml
 
 # Python
