@@ -1,17 +1,27 @@
 import os
 from google import genai
 
-#PASSANDO A CHAVE PARA O PROGRAMA
-api_key = os.getenv("GOOGLE_API_KEY_AMEPA")
+# PASSANDO A CHAVE PARA O PROGRAMA
+api_key = os.getenv("GEMINI_API_KEY_PESSOAL")
 
-if not api_key: #Verifica se api key foi encontrada ou está vazia
-    raise RuntimeError(f"A variável {api_key} não foi encontrada")
+# Verifica se a API Key foi encontrada ou está vazia
+if not api_key:raise RuntimeError("A variável GEMINI_API_KEY_PESSOAL não foi encontrada.")
 
-#Cria um clinete da API Gemini
+# Cria um cliente da API Gemini
 client = genai.Client(api_key=api_key)
 
-resposta = client.models.generate_content(model="gemini-2.5-flash", contents="O que é uma IA?")
-print(resposta.text)
+# Cria o chatbot
+chat = client.chats.create(model="gemini-2.5-flash")
+
+# Envia uma mensagem para o chatbot
+resposta = chat.send_message("O que é o Python?")
+print(resposta.text) # Exibe a resposta
+historico = chat.get_history() # Exibe o histórico
+
+# para cada mensagem dentro de histórico, imprima a mensagem.
+for mensagem in historico:
+    print(mensagem)
+
 
 
 # produto1 = 5
